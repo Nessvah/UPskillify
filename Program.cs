@@ -10,15 +10,14 @@ var connectionStrBuilder = new SqlConnectionStringBuilder(
 
 connectionStrBuilder.UserID = builder.Configuration["DB_USER"];
 connectionStrBuilder.Password = builder.Configuration["DB_PWD"];
-var connection = connectionStrBuilder.ConnectionString;
+string connection = connectionStrBuilder.ConnectionString;
 
-Console.WriteLine(connection);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 // Add the database context to the application
 builder.Services.AddDbContext<UpskillifyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("UPskillifyDbConnectionString")));
+    options.UseSqlServer(connection));
 
 var app = builder.Build();
 
