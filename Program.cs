@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using UPskillify_Forum.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+// Add the database context to the application
+builder.Services.AddDbContext<UpskillifyDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("UPskillifyDbConnectionString")));
 
 var app = builder.Build();
 
