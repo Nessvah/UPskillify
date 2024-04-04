@@ -1,7 +1,18 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// build the connection string for the db using secrets
+var connectionStrBuilder = new SqlConnectionStringBuilder(
+    builder.Configuration.GetConnectionString("UPskillify"));
+
+connectionStrBuilder.UserID = builder.Configuration["DB_USER"];
+connectionStrBuilder.Password = builder.Configuration["DB_PWD"];
+var connection = connectionStrBuilder.ConnectionString;
+
+Console.WriteLine(connection);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
