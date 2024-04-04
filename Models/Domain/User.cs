@@ -11,4 +11,7 @@ public class User
     public List<UserFollow>? Following { get; set; }
     // Navigation property to represent users that are following this user
     public List<UserFollow>? Followers { get; set; }
+    
+    // Navigation property representing the comments authored by this user
+    public List<Comment>? Comments { get; set; }
 }

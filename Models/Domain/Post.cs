@@ -19,5 +19,5 @@ public class Post
     
     public User Author { get; set; }
     public Guid AuthorId { get; set; }
-    public List<Tag>? Tags { get; set; }
+    public List<PostTag>? PostTags { get; set; }
 }
