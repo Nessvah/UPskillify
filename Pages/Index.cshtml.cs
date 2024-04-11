@@ -12,6 +12,7 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
+    // Get action method -> substitute of the controllers
     public void OnGet()
     {
 

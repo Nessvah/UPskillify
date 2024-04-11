@@ -1,0 +1,28 @@
+@page
+@model UPskillify_Forum.Pages.Admin.Forums.AddForum
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10">
+    <div class="container p-2"><h1>Create a new forum</h1></div>
+</div>
+
+<div class="container mt-4 w-25">
+   <form method="post">
+     <div class="mb-3">
+       <label asp-for="AddSubForumReq.ForumName" class="form-label">Forum name</label>
+       <input type="text" class="form-control" id="forumName" asp-for="AddSubForumReq.ForumName">
+       <span asp-validation-for="AddSubForumReq.ForumName" class="text-danger"></span>
+     </div>
+     <div class="mb-3">
+       <label asp-for="AddSubForumReq.Description" class="form-label">Description</label>
+       <input type="text" class="form-control" id="description"  aria-describedby="descriptionHelp" 
+              asp-for="AddSubForumReq.Description">
+       <div id="descriptionHelp" class="form-text">Give it a little description to help others decide about it.</div>
+       <span asp-validation-for="AddSubForumReq.Description" class="text-danger"></span>
+     </div>
+     <button type="submit" class="btn btn-primary">Create</button>
+
+   </form>
+</div>
