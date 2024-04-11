@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UPskillify_Forum.Data;
 
@@ -11,9 +12,11 @@ using UPskillify_Forum.Data;
 namespace UPskillify_Forum.Migrations
 {
     [DbContext(typeof(UpskillifyDbContext))]
-    partial class UpskillifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411155118_renamePostsTable")]
+    partial class renamePostsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

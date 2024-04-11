@@ -15,7 +15,7 @@ public class UpskillifyDbContext: DbContext
     // SubForums will be the name from which EF will create the tables on the db
     // and also, the property which we can query do the CRUD operations
     public DbSet<SubForum> SubForums { get; set; }
-    public DbSet<Post> Pots { get; set; }
+    public DbSet<Post> Posts { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Tag> Tags { get; set; }
