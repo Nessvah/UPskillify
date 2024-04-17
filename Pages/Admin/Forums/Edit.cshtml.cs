@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using UPskillify_Forum.Data;
 using UPskillify_Forum.Models.Domain;
 
@@ -14,6 +16,7 @@ public class Edit : PageModel
 
     }
 
+    [BindProperty]
     public SubForum SubForum { get; set; }
     public string ErrorMessage { get; set; }
     
@@ -22,16 +25,16 @@ public class Edit : PageModel
     {
         try
         {
-            // while trying to find a record, is not guaranteed that it will exist so we have a p
+            // while trying to find a record, is not guaranteed that it will exist, so we have a p
             // potential null reference that we need to be aware of
             var subForum = _upskillifyDbContext.SubForums.Find(id);
 
             if (subForum != null) SubForum = subForum;
             else
-                // if we didnt find any record, show that message
+                // if we didn't find any record, show that message
                 ErrorMessage = $"Forum with the Id of: {id}, not found.";
         }
-        catch (Exception e)
+        catch (SqlException e)
         {
             Console.WriteLine(e);
             throw;

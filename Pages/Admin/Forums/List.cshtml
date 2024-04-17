@@ -28,16 +28,35 @@
             <td> </td>
         </tr>
         </thead>
-        <tbody>
-        @foreach (var subForum in Model.SubForums as List<SubForum>)
+        @if (!ModelState.IsValid)
         {
-            <tr>
-                <td>@subForum.Id</td>
-                <td>@subForum.ForumName</td>
-                <td>@subForum.Description</td>
-                <td><a href="/admin/subforums/edit/@subForum.Id">View</a></td>
-            </tr>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ModelState.Values.SelectMany(value => value.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        } 
+        else if (!Model.SubForums.Any())
+        {
+            <p>No data still available.</p>
         }
-        </tbody>
+        else
+        {
+            <tbody>
+            @foreach (var subForum in Model.SubForums as List<SubForum>)
+            {
+                <tr>
+                    <td>@subForum.Id</td>
+                    <td>@subForum.ForumName</td>
+                    <td>@subForum.Description</td>
+                    <td><a href="/admin/forums/edit/@subForum.Id">View</a></td>
+                </tr>
+            }
+            </tbody>
+        }
+       
     </table>
 </div>
