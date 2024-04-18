@@ -40,4 +40,41 @@ public class Edit : PageModel
             throw;
         }
     }
+
+    public IActionResult OnPost()
+    {
+        try
+        {
+            var subForum = _upskillifyDbContext.SubForums.Find(SubForum.Id);
+
+            if (subForum != null)
+            {
+                subForum.ForumName = SubForum.ForumName;
+                subForum.Description = SubForum.Description;
+            }
+
+            _upskillifyDbContext.SaveChanges();
+            return RedirectToPage("/admin/forums/list");
+        }
+        catch (SqlException e)
+        {
+            // since the on post return an IAction result we need to adapt to return any errors
+            // the example below is not going to work since is not compatible with the returning type
+            //ErrorMessage = $"Sorry, an error occured while trying to update the info. Try again later. {e.Message}";
+            //return ErrorMessage;
+            
+            ErrorMessage = $"Sorry, an error occured while trying to update the info. Try again later. {e.Message}";
+            ModelState.AddModelError(string.Empty, ErrorMessage);
+            
+            // now we return the page
+            return Page();
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = $"Sorry an error occured: {e.Message}. Try again later.";
+            ModelState.AddModelError(string.Empty, ErrorMessage);
+
+            return Page();
+        }
+    }
 }
