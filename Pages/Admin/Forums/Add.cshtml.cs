@@ -8,7 +8,7 @@ using UPskillify_Forum.Models.ViewModels;
 
 namespace UPskillify_Forum.Pages.Admin.Forums;
 
-public class AddForum : PageModel
+public class Add : PageModel
 {
     private readonly UpskillifyDbContext _upskillifyDbContext;
 
@@ -18,17 +18,14 @@ public class AddForum : PageModel
     public AddSubForum AddSubForumReq { get; set; }
     
     // create construct to inject our db context as a parameter
-    public AddForum(UpskillifyDbContext upskillifyDbContext)
+    public Add(UpskillifyDbContext upskillifyDbContext)
     {
         _upskillifyDbContext = upskillifyDbContext;
 
     }
-    public void OnGet()
-    {
-        
-    }
+
     // this will be the post controller
-    //IActionResult is an interface provided by ASP.NET Core MVC that represents the result of an action method.
+    // IActionResult is an interface provided by ASP.NET Core MVC that represents the result of an action method.
     public IActionResult OnPost()
     {
         var subForum = new SubForum()
@@ -50,7 +47,7 @@ public class AddForum : PageModel
             _upskillifyDbContext.SubForums.Add(subForum);
             // this will actually save the changes to the database
             _upskillifyDbContext.SaveChanges();
-            return StatusCode(201);
+            return RedirectToPage("/admin/forums/list");
         }
         catch (DbUpdateException e)
         {

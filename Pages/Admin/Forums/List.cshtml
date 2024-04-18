@@ -1,0 +1,62 @@
+@page
+@using UPskillify_Forum.Models.Domain
+@model UPskillify_Forum.Pages.Admin.Forums.List
+
+@{
+    Layout = "Shared/_Layout";
+}
+
+<div class="bg-secondary bg-opacity-10 py-2 mb-5">
+    <div class="container">
+        <h1>All Forums</h1>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <td>
+                Id
+            </td>
+            <td>
+                Name
+            </td>
+            <td>
+                Description
+            </td>
+            <td> </td>
+        </tr>
+        </thead>
+        @if (!ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ModelState.Values.SelectMany(value => value.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        } 
+        else if (!Model.SubForums.Any())
+        {
+            <p>No data still available.</p>
+        }
+        else
+        {
+            <tbody>
+            @foreach (var subForum in Model.SubForums as List<SubForum>)
+            {
+                <tr>
+                    <td>@subForum.Id</td>
+                    <td>@subForum.ForumName</td>
+                    <td>@subForum.Description</td>
+                    <td><a href="/admin/forums/edit/@subForum.Id">View</a></td>
+                </tr>
+            }
+            </tbody>
+        }
+       
+    </table>
+</div>

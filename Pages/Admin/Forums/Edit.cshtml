@@ -1,0 +1,43 @@
+@page "{id:Guid}"
+@model UPskillify_Forum.Pages.Admin.Forums.Edit
+
+@{
+    Layout = "Shared/_Layout";
+}
+
+<div class="bg-secondary bg-opacity-10">
+    <div class="container p-2"><h1>Edit this forum</h1></div>
+</div>
+
+<div class="container mt-4 w-25">
+    
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert-danger bg-danger">
+            <p>Ups we are sorry but some error occured. Try again later or contact the admin.</p>
+        </div>
+    }
+    
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="SubForum.Id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id" asp-for="SubForum.Id" readonly="readonly">
+        </div>
+        <div class="mb-3">
+            <label asp-for="SubForum.ForumName" class="form-label">Forum Name</label>
+            <input type="text" class="form-control" id="forumName" asp-for="SubForum.ForumName">
+            <span asp-validation-for="SubForum.ForumName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="SubForum.Description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" aria-describedby="descriptionHelp"
+                   asp-for="SubForum.Description">
+            <div id="descriptionHelp" class="form-text">Give it a little description to help others decide about it.</div>
+            <span asp-validation-for="SubForum.Description" class="text-danger"></span>
+        </div>
+        <!-- The asp-page-handler will allow for us to use the same onpost method but will be able to differentiate 
+        what to do depending on the button clicked -->
+        <button type="submit" class="btn btn-primary" asp-page-handler="Edit">Update</button>
+        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+    </form>
+</div>
