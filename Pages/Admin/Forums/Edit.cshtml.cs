@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -41,7 +42,9 @@ public class Edit : PageModel
         }
     }
 
-    public IActionResult OnPost()
+    // Razor will know which method to choose between Edit or Delete because with asp-page-handler, he will look
+    // for any method prefixed with OnPost and then the name specified on the asp-page-handler.
+    public IActionResult OnPostEdit()
     {
         try
         {
@@ -74,6 +77,39 @@ public class Edit : PageModel
             ErrorMessage = $"Sorry an error occured: {e.Message}. Try again later.";
             ModelState.AddModelError(string.Empty, ErrorMessage);
 
+            return Page();
+        }
+    }
+
+    public IActionResult OnPostDelete()
+    {
+        try
+        {
+            // get the forum to delete
+            var subForum = _upskillifyDbContext.SubForums.Find(SubForum.Id);
+
+            if (subForum != null)
+            {
+                _upskillifyDbContext.SubForums.Remove(subForum);
+                _upskillifyDbContext.SaveChanges();
+                return RedirectToPage("/admin/forums/list");
+            }
+
+            ErrorMessage = $"We couldn't find the specified forum to delete.";
+            ModelState.AddModelError(string.Empty, ErrorMessage);
+            return Page();
+
+        }
+        catch (SqlException e)
+        {
+            ErrorMessage = $"Sorry an error occured while trying to delete the forum. Please try again later.";
+            ModelState.AddModelError(string.Empty, ErrorMessage);
+            return Page();
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = $"An unexpected error occured. Try again later or contact the admin.";
+            ModelState.AddModelError(string.Empty, ErrorMessage);
             return Page();
         }
     }

@@ -35,7 +35,9 @@
             <div id="descriptionHelp" class="form-text">Give it a little description to help others decide about it.</div>
             <span asp-validation-for="SubForum.Description" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-
+        <!-- The asp-page-handler will allow for us to use the same onpost method but will be able to differentiate 
+        what to do depending on the button clicked -->
+        <button type="submit" class="btn btn-primary" asp-page-handler="Edit">Update</button>
+        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">Delete</button>
     </form>
 </div>
