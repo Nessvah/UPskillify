@@ -28,18 +28,8 @@
             <td> </td>
         </tr>
         </thead>
-        @if (!ModelState.IsValid)
-        {
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach (var error in ModelState.Values.SelectMany(value => value.Errors))
-                    {
-                        <li>@error.ErrorMessage</li>
-                    }
-                </ul>
-            </div>
-        } 
-        else if (!Model.SubForums.Any())
+
+        @if (!Model.SubForums.Any())
         {
             <p>No data still available.</p>
         }

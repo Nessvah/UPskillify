@@ -22,33 +22,41 @@ public class Edit : PageModel
     public string ErrorMessage { get; set; }
     
     // the page will get an id parameter
-    public void OnGet(Guid id)
+    // TODO: This query might take a long if the db is not up.
+    public async Task<IActionResult> OnGet(Guid id)
     {
         try
         {
             // while trying to find a record, is not guaranteed that it will exist, so we have a p
             // potential null reference that we need to be aware of
-            var subForum = _upskillifyDbContext.SubForums.Find(id);
+            var subForum = await _upskillifyDbContext.SubForums.FindAsync(id);
 
             if (subForum != null) SubForum = subForum;
             else
+            {
                 // if we didn't find any record, show that message
                 ErrorMessage = $"Forum with the Id of: {id}, not found.";
+                ModelState.AddModelError(string.Empty, ErrorMessage);
+                return Page();
+            }
+
+            return Page();
         }
-        catch (SqlException e)
+        catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            ErrorMessage = $"An error occured while trying to get the results. Please try again later.";
+            ModelState.AddModelError(string.Empty, ErrorMessage);
+            return Page();
         }
     }
 
     // Razor will know which method to choose between Edit or Delete because with asp-page-handler, he will look
     // for any method prefixed with OnPost and then the name specified on the asp-page-handler.
-    public IActionResult OnPostEdit()
+    public async Task<IActionResult> OnPostEdit()
     {
         try
         {
-            var subForum = _upskillifyDbContext.SubForums.Find(SubForum.Id);
+            var subForum = await _upskillifyDbContext.SubForums.FindAsync(SubForum.Id);
 
             if (subForum != null)
             {
@@ -56,7 +64,7 @@ public class Edit : PageModel
                 subForum.Description = SubForum.Description;
             }
 
-            _upskillifyDbContext.SaveChanges();
+            await _upskillifyDbContext.SaveChangesAsync();
             return RedirectToPage("/admin/forums/list");
         }
         catch (SqlException e)
@@ -81,17 +89,17 @@ public class Edit : PageModel
         }
     }
 
-    public IActionResult OnPostDelete()
+    public async Task<IActionResult> OnPostDelete()
     {
         try
         {
             // get the forum to delete
-            var subForum = _upskillifyDbContext.SubForums.Find(SubForum.Id);
+            var subForum = await _upskillifyDbContext.SubForums.FindAsync(SubForum.Id);
 
             if (subForum != null)
             {
                 _upskillifyDbContext.SubForums.Remove(subForum);
-                _upskillifyDbContext.SaveChanges();
+                await _upskillifyDbContext.SaveChangesAsync();
                 return RedirectToPage("/admin/forums/list");
             }
 

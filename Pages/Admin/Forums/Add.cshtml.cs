@@ -26,7 +26,7 @@ public class Add : PageModel
 
     // this will be the post controller
     // IActionResult is an interface provided by ASP.NET Core MVC that represents the result of an action method.
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPost()
     {
         var subForum = new SubForum()
         {
@@ -44,9 +44,9 @@ public class Add : PageModel
         try
         {
             // try saving the new data in the database
-            _upskillifyDbContext.SubForums.Add(subForum);
+            await _upskillifyDbContext.SubForums.AddAsync(subForum);
             // this will actually save the changes to the database
-            _upskillifyDbContext.SaveChanges();
+            await _upskillifyDbContext.SaveChangesAsync();
             return RedirectToPage("/admin/forums/list");
         }
         catch (DbUpdateException e)

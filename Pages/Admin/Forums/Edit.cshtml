@@ -14,7 +14,7 @@
     @if (!ModelState.IsValid)
     {
         <div class="alert-danger bg-danger">
-            <p>Ups we are sorry but some error occured. Try again later or contact the admin.</p>
+            <p>@Model.ErrorMessage</p>
         </div>
     }
     

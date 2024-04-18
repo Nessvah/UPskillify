@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
 using UPskillify_Forum.Models.Domain;
 
@@ -19,11 +20,11 @@ public class List : PageModel
     // List to store all the subforums data from db
     public List<SubForum> SubForums { get; set; }
     
-    public void OnGet()
+    public async Task OnGet()
     {
         try
         {
-            SubForums = _upskillifyDbContext.SubForums.ToList();
+            SubForums = await _upskillifyDbContext.SubForums.ToListAsync();
         }
         catch (SqlException ex)
         {
