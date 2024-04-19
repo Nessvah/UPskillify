@@ -22,7 +22,7 @@ public class UpskillifyDbContext: DbContext
     public DbSet<UserFollow> UserFollows { get; set; }
     public DbSet<PostTag> PostTags { get; set; }
     
-    // when we have many to many relationships EF can't map them directly so
+    // when we have many-to-many relationships EF can't map them directly, so
     // we need to do that explicitly
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

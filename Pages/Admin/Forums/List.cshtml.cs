@@ -18,7 +18,7 @@ public class List : PageModel
     }
 
     // List to store all the subforums data from db
-    public List<SubForum> SubForums { get; set; }
+    public List<SubForum?> SubForums { get; set; }
     
     public async Task OnGet()
     {
