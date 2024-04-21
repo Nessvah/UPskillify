@@ -10,7 +10,7 @@ namespace UPskillify_Forum.Repositories;
 
 public class SubForumRepository(UpskillifyDbContext upskillifyDbContext) : ICrudRepository<SubForum>
 {
-    public async Task<IEnumerable<SubForum?>> GetAllAsync()
+    public async Task<IEnumerable<SubForum>> GetAllAsync()
     {
         return await upskillifyDbContext.SubForums.ToListAsync();
     }

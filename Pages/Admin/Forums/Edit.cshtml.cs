@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using UPskillify_Forum.Data;
 using UPskillify_Forum.Models.Domain;
+using UPskillify_Forum.Repositories;
 
 namespace UPskillify_Forum.Pages.Admin.Forums;
 
 public class Edit : PageModel
 {
-    private readonly UpskillifyDbContext _upskillifyDbContext;
+    private readonly ICrudRepository<SubForum> _subForumRepository;
 
-    public Edit(UpskillifyDbContext upskillifyDbContext)
+    public Edit(ICrudRepository<SubForum> subForumRepository)
     {
-        _upskillifyDbContext = upskillifyDbContext;
+        _subForumRepository = subForumRepository;
 
     }
 
@@ -29,7 +30,7 @@ public class Edit : PageModel
         {
             // while trying to find a record, is not guaranteed that it will exist, so we have a p
             // potential null reference that we need to be aware of
-            var subForum = await _upskillifyDbContext.SubForums.FindAsync(id);
+            var subForum = await _subForumRepository.GetAsync(id);
 
             if (subForum != null) SubForum = subForum;
             else
@@ -56,7 +57,7 @@ public class Edit : PageModel
     {
         try
         {
-            var subForum = await _upskillifyDbContext.SubForums.FindAsync(SubForum.Id);
+            var subForum = await _subForumRepository.GetAsync(SubForum.Id);
 
             if (subForum != null)
             {
@@ -64,7 +65,7 @@ public class Edit : PageModel
                 subForum.Description = SubForum.Description;
             }
 
-            await _upskillifyDbContext.SaveChangesAsync();
+            await _subForumRepository.UpdateAsync(subForum);
             return RedirectToPage("/admin/forums/list");
         }
         catch (SqlException e)
@@ -93,13 +94,10 @@ public class Edit : PageModel
     {
         try
         {
-            // get the forum to delete
-            var subForum = await _upskillifyDbContext.SubForums.FindAsync(SubForum.Id);
-
-            if (subForum != null)
+            bool isDeleted = await _subForumRepository.DeleteAsync(SubForum.Id);
+         
+            if (isDeleted)
             {
-                _upskillifyDbContext.SubForums.Remove(subForum);
-                await _upskillifyDbContext.SaveChangesAsync();
                 return RedirectToPage("/admin/forums/list");
             }
 

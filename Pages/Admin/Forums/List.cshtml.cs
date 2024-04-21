@@ -4,27 +4,28 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
 using UPskillify_Forum.Models.Domain;
+using UPskillify_Forum.Repositories;
 
 namespace UPskillify_Forum.Pages.Admin.Forums;
 
 public class List : PageModel
 {
-    private readonly UpskillifyDbContext _upskillifyDbContext;
+    private readonly ICrudRepository<SubForum> _subForumRepository;
 
-    public List(UpskillifyDbContext upskillifyDbContext)
+    public List(ICrudRepository<SubForum> subForumRepository)
     {
-        _upskillifyDbContext = upskillifyDbContext;
+        _subForumRepository = subForumRepository;
 
     }
 
     // List to store all the subforums data from db
-    public List<SubForum?> SubForums { get; set; }
+    public IEnumerable<SubForum> SubForums { get; set; }
     
     public async Task OnGet()
     {
         try
         {
-            SubForums = await _upskillifyDbContext.SubForums.ToListAsync();
+            SubForums = await _subForumRepository.GetAllAsync();
         }
         catch (SqlException ex)
         {

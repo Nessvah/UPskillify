@@ -11,7 +11,7 @@ public interface ICrudRepository<T> where T: class
     // implements this interface, needs to have
     
     // get all Ts
-    Task<IEnumerable<T?>> GetAllAsync();
+    Task<IEnumerable<T>> GetAllAsync();
     
     // get one T
     Task<T?> GetAsync(Guid id);
