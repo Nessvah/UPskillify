@@ -22,4 +22,8 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.0-preview.2.24128.5" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\lib\scss\custom.scss" />
+    </ItemGroup>
+
 </Project>
