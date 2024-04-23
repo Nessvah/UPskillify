@@ -4,7 +4,7 @@ image, picture, img {
 }
 
 h1 {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .notfound {
@@ -34,4 +34,8 @@ h1 {
 .notfound__card {
     background-color: rgba(0,0,0,0.5);
     border-radius: 12px;
+}
+
+.notfound__link {
+    color: #63B0C5; !important;
 }
