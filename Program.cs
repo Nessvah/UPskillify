@@ -1,6 +1,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
+using UPskillify_Forum.Models.Domain;
+using UPskillify_Forum.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,10 @@ builder.Services.AddRazorPages();
 // Add the database context to the application
 builder.Services.AddDbContext<UpskillifyDbContext>(options =>
     options.UseSqlServer(connection));
+
+// inject the repositories
+// for each implementation we need to register one more like the below
+builder.Services.AddScoped<ICrudRepository<SubForum>, SubForumRepository>();
 
 var app = builder.Build();
 

@@ -1,3 +1,12 @@
+:root {
+  --russian-violet: #3D0859;
+  --ultra-violet: #604B99;
+  --hookers-green: #426A5A;
+  --cambridge-blue: #7B9E87;
+  --white: #FCFCFC;
+  --black: #222;
+}
+
 html {
   font-size: 14px;
 }
@@ -19,4 +28,31 @@ html {
 
 body {
   margin-bottom: 60px;
+  font-family: BodyFont, sans-serif;
+  color: var(--russian-violet); 
+}
+
+@font-face {
+  font-family: LogoFont;
+  src: url("YesevaOne-Regular.ttf");
+}
+
+@font-face {
+  font-family: SubHeadingFont;
+  src: url("MerriweatherSans-BoldItalic.ttf");
+}
+
+@font-face {
+  font-family: BodyFont;
+  src: url("MerriweatherSans-Regular.ttf");
+}
+
+.logo-font {
+  font-family: LogoFont, serif;
+  font-size: 40px;
+  color: var(--ultra-violet);
+}
+
+.upskillify-text.text-black {
+  color: var(--russian-violet); !important;
 }

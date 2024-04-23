@@ -1,16 +1,15 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using UPskillify_Forum.Data;
 using UPskillify_Forum.Models.Domain;
 using UPskillify_Forum.Models.ViewModels;
+using UPskillify_Forum.Repositories;
 
 namespace UPskillify_Forum.Pages.Admin.Forums;
 
 public class Add : PageModel
 {
-    private readonly UpskillifyDbContext _upskillifyDbContext;
+    private readonly ICrudRepository<SubForum>  _subForumRepository;
 
     // property binding - much cleaner approach to submit forms and
     // read their values
@@ -18,9 +17,9 @@ public class Add : PageModel
     public AddSubForum AddSubForumReq { get; set; }
     
     // create construct to inject our db context as a parameter
-    public Add(UpskillifyDbContext upskillifyDbContext)
+    public Add(ICrudRepository<SubForum> subForumRepository)
     {
-        _upskillifyDbContext = upskillifyDbContext;
+        _subForumRepository = subForumRepository;
 
     }
 
@@ -43,10 +42,7 @@ public class Add : PageModel
         }
         try
         {
-            // try saving the new data in the database
-            await _upskillifyDbContext.SubForums.AddAsync(subForum);
-            // this will actually save the changes to the database
-            await _upskillifyDbContext.SaveChangesAsync();
+            await _subForumRepository.AddAsync(subForum);
             return RedirectToPage("/admin/forums/list");
         }
         catch (DbUpdateException e)
