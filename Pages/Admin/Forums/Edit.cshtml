@@ -14,13 +14,6 @@
     
     <partial name="Shared/_Notification"/>
     
-    @if (!ModelState.IsValid)
-    {
-        <div class="alert-danger bg-danger">
-            <p>@Model.ErrorMessage</p>
-        </div>
-    }
-    
     
     <form method="post">
         <div class="mb-3">

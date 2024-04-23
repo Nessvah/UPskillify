@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,7 +24,6 @@ public class Edit : PageModel
 
     [BindProperty]
     public SubForum SubForum { get; set; }
-    public string ErrorMessage { get; set; }
     
     // the page will get an id parameter
     // TODO: This query might take a long if the db is not up.
@@ -39,17 +39,33 @@ public class Edit : PageModel
             else
             {
                 // if we didn't find any record, show that message
-                ErrorMessage = $"Forum with the Id of: {id}, not found.";
-                ModelState.AddModelError(string.Empty, ErrorMessage);
+                ViewData["Notification"] = new Notification
+                {
+                    Message = $"Sorry but the id {id} doesn't exist.",
+                    Type = NotificationType.Error
+                };
+
                 return Page();
             }
+            return Page();
 
+        }
+        catch (SqlException e)
+        {
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured while trying to get the results. {e.Message}",
+                Type = NotificationType.Error
+            };
             return Page();
         }
         catch (Exception e)
         {
-            ErrorMessage = $"An error occured while trying to get the results. Please try again later.";
-            ModelState.AddModelError(string.Empty, ErrorMessage);
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured on the server. {e.Message}",
+                Type = NotificationType.Error
+            };
             return Page();
         }
     }
@@ -80,22 +96,20 @@ public class Edit : PageModel
         }
         catch (SqlException e)
         {
-            // since the on post return an IAction result we need to adapt to return any errors
-            // the example below is not going to work since is not compatible with the returning type
-            //ErrorMessage = $"Sorry, an error occured while trying to update the info. Try again later. {e.Message}";
-            //return ErrorMessage;
-            
-            ErrorMessage = $"Sorry, an error occured while trying to update the info. Try again later. {e.Message}";
-            ModelState.AddModelError(string.Empty, ErrorMessage);
-            
-            // now we return the page
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured with the database. {e.Message}",
+                Type = NotificationType.Error
+            };
             return Page();
         }
         catch (Exception e)
         {
-            ErrorMessage = $"Sorry an error occured: {e.Message}. Try again later.";
-            ModelState.AddModelError(string.Empty, ErrorMessage);
-
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured on the server. {e.Message}",
+                Type = NotificationType.Error
+            };
             return Page();
         }
     }
@@ -108,24 +122,40 @@ public class Edit : PageModel
          
             if (isDeleted)
             {
+                var notification = new Notification
+                {
+                    Message = "The forum was deleted successfully!",
+                    Type = NotificationType.Success
+                };
+
+                TempData["Notification"] = JsonSerializer.Serialize(notification);
                 return RedirectToPage("/admin/forums/list");
             }
 
-            ErrorMessage = $"We couldn't find the specified forum to delete.";
-            ModelState.AddModelError(string.Empty, ErrorMessage);
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"The id entered: {SubForum.Id}, does not exists.",
+                Type = NotificationType.Error
+            };
             return Page();
 
         }
         catch (SqlException e)
         {
-            ErrorMessage = $"Sorry an error occured while trying to delete the forum. Please try again later.";
-            ModelState.AddModelError(string.Empty, ErrorMessage);
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured with the database. {e.Message}",
+                Type = NotificationType.Error
+            };
             return Page();
         }
         catch (Exception e)
         {
-            ErrorMessage = $"An unexpected error occured. Try again later or contact the admin.";
-            ModelState.AddModelError(string.Empty, ErrorMessage);
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured on the server. {e.Message}",
+                Type = NotificationType.Error
+            };
             return Page();
         }
     }
