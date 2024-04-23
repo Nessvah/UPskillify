@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using UPskillify_Forum.Enums;
 using UPskillify_Forum.Models.Domain;
 using UPskillify_Forum.Models.ViewModels;
 using UPskillify_Forum.Repositories;
@@ -43,6 +44,15 @@ public class Add : PageModel
         try
         {
             await _subForumRepository.AddAsync(subForum);
+            // if we want to redirect the user to another page the best option is to use tempdata 
+            // for its long storage between this request and the next one
+
+            TempData["Notification"] = new Notification
+            {
+                Message = "Forum created successfully!",
+                Type = NotificationType.Success
+            };
+            
             return RedirectToPage("/admin/forums/list");
         }
         catch (DbUpdateException e)

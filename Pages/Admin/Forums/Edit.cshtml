@@ -9,7 +9,10 @@
     <div class="container p-2"><h1>Edit this forum</h1></div>
 </div>
 
+
 <div class="container mt-4 w-25">
+    
+    <partial name="Shared/_Notification"/>
     
     @if (!ModelState.IsValid)
     {
@@ -17,6 +20,7 @@
             <p>@Model.ErrorMessage</p>
         </div>
     }
+    
     
     <form method="post">
         <div class="mb-3">

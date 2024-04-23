@@ -2,8 +2,11 @@ using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using UPskillify_Forum.Data;
+using UPskillify_Forum.Enums;
 using UPskillify_Forum.Models.Domain;
+using UPskillify_Forum.Models.ViewModels;
 using UPskillify_Forum.Repositories;
 
 namespace UPskillify_Forum.Pages.Admin.Forums;
@@ -66,7 +69,14 @@ public class Edit : PageModel
             }
 
             await _subForumRepository.UpdateAsync(subForum);
-            return RedirectToPage("/admin/forums/list");
+
+            ViewData["Notification"] = new Notification
+            {
+                Message = "Forum updated successfully!",
+                Type = NotificationType.Success
+            };
+
+            return Page();
         }
         catch (SqlException e)
         {
