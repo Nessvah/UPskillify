@@ -9,14 +9,11 @@
     <div class="container p-2"><h1>Edit this forum</h1></div>
 </div>
 
+
 <div class="container mt-4 w-25">
     
-    @if (!ModelState.IsValid)
-    {
-        <div class="alert-danger bg-danger">
-            <p>@Model.ErrorMessage</p>
-        </div>
-    }
+    <partial name="Shared/_Notification"/>
+    
     
     <form method="post">
         <div class="mb-3">

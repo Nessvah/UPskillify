@@ -14,8 +14,7 @@
 </head>
 <body>
 <header>
-    <!-- aspnet has an asyncPartial for when we have some async operations going on on that partial -->
-    @Html.Partial("_Navbar")
+    <partial name="_Navbar"/>
 </header>
 <main role="main" class="pb-3">
     @RenderBody()
@@ -23,7 +22,7 @@
 
 
 <footer class="border-top footer text-muted">
-   @Html.Partial("_Footer")
+   <partial name="_Footer"/>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

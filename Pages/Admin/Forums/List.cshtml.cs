@@ -1,9 +1,11 @@
 
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
 using UPskillify_Forum.Models.Domain;
+using UPskillify_Forum.Models.ViewModels;
 using UPskillify_Forum.Repositories;
 
 namespace UPskillify_Forum.Pages.Admin.Forums;
@@ -25,6 +27,16 @@ public class List : PageModel
     {
         try
         {
+            
+            // pattern matching -> The `is` keyword performs type testing, checking whether an object is compatible with
+            // a given type. It returns true if the object can be cast to the specified type, and false otherwise.
+            if(TempData["Notification"] is string notification)
+            {
+                // When retrieving the notification from TempData on the subsequent request, we need to deserialize the
+                // JSON string back into a Notification object
+                ViewData["Notification"] = JsonSerializer.Deserialize<Notification>(notification);
+            }
+            
             SubForums = await _subForumRepository.GetAllAsync();
         }
         catch (SqlException ex)

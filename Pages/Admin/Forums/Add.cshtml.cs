@@ -1,6 +1,8 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using UPskillify_Forum.Enums;
 using UPskillify_Forum.Models.Domain;
 using UPskillify_Forum.Models.ViewModels;
 using UPskillify_Forum.Repositories;
@@ -43,17 +45,41 @@ public class Add : PageModel
         try
         {
             await _subForumRepository.AddAsync(subForum);
+            
+            // if we want to redirect the user to another page the best option is to use tempdata 
+            // for its long storage between this request and the next one
+           var notification = new Notification
+            {
+                Message = "Forum created successfully!",
+                Type = NotificationType.Success
+            };
+            
+            // TempData internally uses session state to persist data between requests. Session state often
+            // requires complex objects to be serializable
+            // serializes the Notification object into a JSON string representation, which can then be stored in TempData.
+            TempData["Notification"] = JsonSerializer.Serialize(notification);
             return RedirectToPage("/admin/forums/list");
         }
         catch (DbUpdateException e)
         {
             // Handle database-specific exceptions
-            return BadRequest($"Error saving data: {e.Message}");
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, $"An error occured: {e.Message}");
-        }
+            ViewData["Notification"] = new Notification
+            {
+                Message = $"An error occured while trying to save the data: {e.Message}",
+                Type = NotificationType.Error
+            };
 
+            return Page();
+        }
+        catch (Exception _)
+        {
+            ViewData["Notification"] = new Notification
+            {
+                Message = "An error occured on the server. Try again later or contact the site admin.",
+                Type = NotificationType.Error
+            };
+
+            return Page();
+        }
     }
 }
