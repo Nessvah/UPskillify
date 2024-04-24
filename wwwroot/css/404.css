@@ -7,21 +7,28 @@ h1 {
     font-size: 3rem;
 }
 
-.notfound {
-    background-image: url("../images/swirling_vortex_pixels.jpg");
+.notfound, .server__error {
     background-size: cover;
     background-position: center;
     height: 100vh;
     position: relative;
     color: white;
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+}
+
+.notfound {
+    background-image: url("../images/swirling_vortex_pixels.jpg");
+}
+
+.server__error {
+    background-image: url("../images/robots-fixing-server.jpg");
 }
 
 .color-overlay {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.3);
 }
 
 .notfound__container {
@@ -32,10 +39,10 @@ h1 {
 }
 
 .notfound__card {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
     border-radius: 12px;
 }
 
-.notfound__link {
+.light-blue {
     color: #63B0C5; !important;
 }

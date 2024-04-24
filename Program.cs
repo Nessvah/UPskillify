@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
+using UPskillify_Forum.Middlewares;
 using UPskillify_Forum.Models.Domain;
 using UPskillify_Forum.Repositories;
 
@@ -24,11 +25,12 @@ builder.Services.AddDbContext<UpskillifyDbContext>(options =>
 // inject the repositories
 // for each implementation we need to register one more like the below
 builder.Services.AddScoped<ICrudRepository<SubForum>, SubForumRepository>();
+builder.Services.AddExceptionHandler<CustomErrorHandler>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

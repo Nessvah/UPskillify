@@ -11,6 +11,8 @@ public class ErrorModel : PageModel
     public string? RequestId { get; set; }
 
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    
+    private string? ExceptionMessage { get; set; }
 
     private readonly ILogger<ErrorModel> _logger;
 

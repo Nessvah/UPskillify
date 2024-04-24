@@ -36,8 +36,9 @@ public class List : PageModel
                 // JSON string back into a Notification object
                 ViewData["Notification"] = JsonSerializer.Deserialize<Notification>(notification);
             }
-            
+            throw new Exception("Some error occured");
             SubForums = await _subForumRepository.GetAllAsync();
+            
         }
         catch (SqlException ex)
         {
