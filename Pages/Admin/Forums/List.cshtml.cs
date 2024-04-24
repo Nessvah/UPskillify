@@ -38,6 +38,7 @@ public class List : PageModel
             }
             
             SubForums = await _subForumRepository.GetAllAsync();
+            
         }
         catch (SqlException ex)
         {

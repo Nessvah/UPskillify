@@ -24,6 +24,24 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\lib\scss\custom.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\MerriweatherSans-Italic-VariableFont_wght.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\MerriweatherSans-VariableFont_wght.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\OFL.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\README.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-Bold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-BoldItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-ExtraBold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-ExtraBoldItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-Italic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-Light.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-LightItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-Medium.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-MediumItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-Regular.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-SemiBold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Merriweather_Sans\static\MerriweatherSans-SemiBoldItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Yeseva_One\OFL.txt" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\Merriweather_Sans,Yeseva_One\Yeseva_One\YesevaOne-Regular.ttf" />
     </ItemGroup>
 
 </Project>

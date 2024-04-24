@@ -83,7 +83,7 @@ public class Edit : PageModel
                 subForum.ForumName = SubForum.ForumName;
                 subForum.Description = SubForum.Description;
             }
-
+           
             await _subForumRepository.UpdateAsync(subForum);
 
             ViewData["Notification"] = new Notification
@@ -116,6 +116,7 @@ public class Edit : PageModel
 
     public async Task<IActionResult> OnPostDelete()
     {
+  
         try
         {
             bool isDeleted = await _subForumRepository.DeleteAsync(SubForum.Id);
@@ -156,6 +157,7 @@ public class Edit : PageModel
                 Message = $"An error occured on the server. {e.Message}",
                 Type = NotificationType.Error
             };
+            
             return Page();
         }
     }

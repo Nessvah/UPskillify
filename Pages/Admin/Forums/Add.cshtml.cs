@@ -42,9 +42,14 @@ public class Add : PageModel
             // if the model validation fails, lets return a bad request with validation errors
             return Page();
         }
+        
+       
         try
         {
+            
             await _subForumRepository.AddAsync(subForum);
+            
+            
             
             // if we want to redirect the user to another page the best option is to use tempdata 
             // for its long storage between this request and the next one

@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using UPskillify_Forum.Data;
+using UPskillify_Forum.Middlewares;
 using UPskillify_Forum.Models.Domain;
 using UPskillify_Forum.Repositories;
 
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<UpskillifyDbContext>(options =>
 // inject the repositories
 // for each implementation we need to register one more like the below
 builder.Services.AddScoped<ICrudRepository<SubForum>, SubForumRepository>();
+builder.Services.AddExceptionHandler<CustomErrorHandler>();
 
 var app = builder.Build();
 
@@ -34,6 +36,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts(); 
 }
+
+// Show custom 404 pages, etc.
+app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+
 // The order in which these are configured is very important!
 app.UseHttpsRedirection();
 app.UseStaticFiles();
