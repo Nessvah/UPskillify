@@ -13,7 +13,6 @@ public class ErrorModel : PageModel
 
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     
-    private string? ExceptionMessage { get; set; }
 
     private readonly ILogger<ErrorModel> _logger;
 
@@ -38,7 +37,7 @@ public class ErrorModel : PageModel
         if (hasExceptionMessage || hasPath)
         {
             string errorPath = exceptionHandlerPathFeature.Path;
-            ErrorHandlingHelper.HandleErrorOutput(_logger, exceptionMessage, errorPath);
+            ErrorHandlingHelper.HandleErrorOutput(_logger, RequestId, exceptionMessage, errorPath);
         }
     }
     
@@ -58,7 +57,7 @@ public class ErrorModel : PageModel
         if (hasExceptionMessage || hasPath)
         {
             string errorPath = exceptionHandlerPathFeature.Path;
-            ErrorHandlingHelper.HandleErrorOutput(_logger, exceptionMessage, errorPath);
+            ErrorHandlingHelper.HandleErrorOutput(_logger, RequestId, exceptionMessage, errorPath);
         }
     }
 }

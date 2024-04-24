@@ -2,7 +2,7 @@ namespace UPskillify_Forum.Helpers;
 
 public class ErrorHandlingHelper
 {
-    public static void HandleErrorOutput(ILogger logger, string exceptionMessage, string path,
+    public static void HandleErrorOutput(ILogger logger, string requestId, string exceptionMessage, string path,
         string additionalInfo = "")
     {
         bool isValidMessage = !string.IsNullOrWhiteSpace(exceptionMessage);
@@ -12,18 +12,20 @@ public class ErrorHandlingHelper
         {
             // both path and exception message are present and contain characters
             exceptionMessage += $" - Path: {path} - Additional Info: {additionalInfo}";
-            logger.LogError("Exception Message: {exceptionMessage}", exceptionMessage);
+            logger.LogError("Request Id: {requestId} - Exception Message: {exceptionMessage}", 
+                requestId, exceptionMessage);
         }
         else if (isValidPath)
         {
             // in this case only path is present
-            logger.LogError("Path: {path} - Additional Info: {additionalInfo}", path, additionalInfo
+            logger.LogError("Request ID: {requestId} - Path: {path} - Additional Info: {additionalInfo}", 
+                requestId, path, additionalInfo
             );
         } else if (isValidMessage)
         {
             // in this case only the message is valid
-            logger.LogError("Exception message: {exceptionMessage} - Additional Info: {additionalInfo}",
-                exceptionMessage, additionalInfo);
+            logger.LogError("Request ID: {requestId} - Exception message: {exceptionMessage} - Additional Info: {additionalInfo}",
+                requestId, exceptionMessage, additionalInfo);
         }
     }
 }
