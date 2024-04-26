@@ -49,8 +49,6 @@ public class Add : PageModel
             
             await _subForumRepository.AddAsync(subForum);
             
-            
-            
             // if we want to redirect the user to another page the best option is to use tempdata 
             // for its long storage between this request and the next one
            var notification = new Notification
